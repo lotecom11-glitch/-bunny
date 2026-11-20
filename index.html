@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bunny for kids - لملابس الأطفال | الكتالوج الرسمي</title>
+    <!-- تحميل خط Cairo و Tajawal و Fredoka للشعار -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --coral-pink: #f48c8c;
+            --sky-blue: #6bb5e8;
+            --soft-pink-bg: #fde6e8;
+            --soft-blue-bg: #dff0fc;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* خلفية متدرجة ناعمة تمزج بين الوردي الباستيل والأزرق السماوي الفاتح */
+            background: linear-gradient(125deg, #fde4e6 0%, #f9f2f4 45%, #eaf5fc 60%, #d4ebfc 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            color: #334155;
+        }
+
+        /* سحب ناعمة في الخلفية */
+        .cloud-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.65;
+        }
+        .cloud-1 {
+            width: 400px;
+            height: 400px;
+            background: #ffc2c7;
+            top: -80px;
+            right: -100px;
+        }
+        .cloud-2 {
+            width: 450px;
+            height: 450px;
+            background: #bae1ff;
+            top: 20%;
+            left: -120px;
+        }
+        .cloud-3 {
+            width: 380px;
+            height: 380px;
+            background: #ffd6da;
+            bottom: 5%;
+            right: 10%;
+        }
+
+        /* كانفاس تساقط الورود */
+        #petals-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        /* حاوية الشعار والهالة الضوئية الدوارة */
+        .logo-halo-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        /* الهالة الضوئية الدوارة والتي تتغير ألوانها حسب ألوان الشعار */
+        .rotating-halo {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #f48c8c,
+                #6bb5e8,
+                #ffffff,
+                #ff9eb5,
+                #7cc4fa,
+                #f48c8c
+            );
+            animation: spinHalo 4s linear infinite, pulseColors 6s ease-in-out infinite alternate;
+            filter: blur(10px);
+            z-index: 1;
+        }
+
+        .rotating-halo-ring {
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 180deg,
+                #f48c8c,
+                #ffffff,
+                #6bb5e8,
+                #ffffff,
+                #f48c8c
+            );
+            animation: spinHalo 3s linear infinite reverse;
+            z-index: 2;
+        }
+
+        @keyframes spinHalo {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseColors {
+            0% {
+                box-shadow: 0 0 25px 8px rgba(244, 140, 140, 0.7), 0 0 45px 15px rgba(107, 181, 232, 0.4);
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                box-shadow: 0 0 30px 10px rgba(107, 181, 232, 0.8), 0 0 50px 18px rgba(255, 255, 255, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 28px 9px rgba(255, 158, 181, 0.8), 0 0 48px 16px rgba(107, 181, 232, 0.6);
+                transform: scale(1.03) rotate(360deg);
+            }
+        }
+
+        .logo-inner-circle {
+            position: relative;
+            width: 204px;
+            height: 204px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff5f6 0%, #ffffff 55%, #eef7fe 100%);
+            border: 4px solid #ffffff;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        /* خط الشعار الطفولي الأنيق */
+        .brand-font {
+            font-family: 'Fredoka', cursive, sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .text-outline-soft {
+            text-shadow: 
+                -1.5px -1.5px 0 #334155,  
+                 1.5px -1.5px 0 #334155,
+                -1.5px  1.5px 0 #334155,
+                 1.5px  1.5px 0 #334155,
+                 0px 3px 6px rgba(0,0,0,0.12);
+        }
+
+        /* بطاقات الفساتين */
+        .dress-card {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .dress-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px -10px rgba(244, 140, 140, 0.35), 0 10px 20px -10px rgba(107, 181, 232, 0.35);
+        }
+
+        .card-border-pink {
+            border: 3px solid rgba(244, 140, 140, 0.55);
+            box-shadow: 0 8px 25px rgba(244, 140, 140, 0.18);
+        }
+
+        .card-border-blue {
+            border: 3px solid rgba(107, 181, 232, 0.55);
+            box-shadow: 0 8px 25px rgba(107, 181, 232, 0.18);
+        }
+
+        /* حركة نبض خفيفة لزر الموسيقى */
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        .music-playing {
+            animation: musicPulse 1.8s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="relative selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- سحب خلفية ناعمة -->
+    <div class="cloud-blob cloud-1"></div>
+    <div class="cloud-blob cloud-2"></div>
+    <div class="cloud-blob cloud-3"></div>
+
+    <!-- كانفاس بتلات الورود الوردية والزرقاء المتساقطة -->
+    <canvas id="petals-canvas"></canvas>
+
+    <!-- مشغل يوتيوب مدمج مصغر/مخفي يعمل تلقائياً -->
+    <div id="youtube-container" class="fixed bottom-4 left-4 z-50 flex items-center gap-2 bg-white/90 backdrop-blur-md p-2 pr-3 rounded-full shadow-xl border-2 border-pink-200 transition-all duration-300">
+        <!-- مشغل اليوتيوب الفعلي (مصغر جداً ليسمح المتصفح بالتشغيل التلقائي) -->
+        <div class="w-10 h-10 rounded-full overflow-hidden relative bg-pink-100 flex items-center justify-center shrink-0 border border-sky-200">
+            <div id="yt-player" class="pointer-events-none scale-150"></div>
+            <div id="music-icon-overlay" class="absolute inset-0 bg-gradient-to-tr from-[#f48c8c] to-[#6bb5e8] flex items-center justify-center text-white pointer-events-none">
+                <i class="fas fa-music text-sm"></i>
+            </div>
+        </div>
+        
+        <div class="flex flex-col text-right pl-1">
+            <span class="text-[11px] font-bold text-slate-700 leading-tight">موسيقى المتجر</span>
+            <span id="music-status-text" class="text-[10px] text-pink-500 font-semibold">جاري التشغيل...</span>
+        </div>
+
+        <button id="toggle-music-btn" onclick="toggleMusic(event)" title="تشغيل / إيقاف الصوت" class="w-9 h-9 rounded-full bg-gradient-to-r from-[#f48c8c] to-[#6bb5e8] text-white flex items-center justify-center shadow-md hover:opacity-90 active:scale-95 transition">
+            <i id="music-btn-icon" class="fas fa-volume-up text-sm"></i>
+        </button>
+    </div>
+
+    <!-- شريط ترحيبي علوي خفيف لتفعيل الصوت بلمسة واحدة إذا حظره المتصفح -->
+    <div id="audio-unlock-banner" class="hidden fixed top-3 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md border-2 border-pink-300 px-4 py-2 rounded-full shadow-lg flex items-center gap-2 cursor-pointer hover:bg-pink-50 transition" onclick="forcePlayMusic()">
+        <span class="w-2.5 h-2.5 rounded-full bg-pink-500 animate-ping"></span>
+        <span class="text-xs sm:text-sm font-bold text-slate-700">اضغط هنا لتشغيل موسيقى الكتالوج 🎵</span>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-24">
+        
+        <!-- قسم الهيدر والشعار -->
+        <header class="text-center mb-12">
+            
+            <!-- دائرة الشعار مع الهالة الضوئية الدوارة المتغيرة الألوان -->
+            <div class="logo-halo-wrapper mb-5">
+                <div class="rotating-halo"></div>
+                <div class="rotating-halo-ring"></div>
+                
+                <div class="logo-inner-circle p-3">
+                    <!-- وردة زرقاء علوية يمين مثل الصورة المرجعية -->
+                    <span class="absolute top-2 right-4 text-sky-400 text-lg drop-shadow-sm select-none">🌸</span>
+                    <!-- وردة وردية سفلية يسار مثل الصورة المرجعية -->
+                    <span class="absolute bottom-2 left-4 text-rose-400 text-lg drop-shadow-sm select-none">🌷</span>
+                    
+                    <!-- رسم توضيحي لطيف يحاكي الشعار المرفق -->
+                    <svg viewBox="0 0 180 115" class="w-36 h-24 drop-shadow-sm">
+                        <!-- شارة التوثيق الزرقاء -->
+                        <circle cx="42" cy="24" r="9" fill="#5bb2eb"/>
+                        <path d="M38 24 l3 3 l5 -6" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        
+                        <!-- قلوب وردية صغيرة -->
+                        <path d="M138 18 c-2-3 -6-1 -6 2 c0 3 6 7 6 7 s6-4 6-7 c0-3 -4-5 -6-2z" fill="#f48c8c"/>
+                        <path d="M148 28 c-1.5-2 -4.5-0.8 -4.5 1.5 c0 2.2 4.5 5 4.5 5 s4.5-2.8 4.5-5 c0-2.3 -3-3.5 -4.5-1.5z" fill="#f7a8a8"/>
+                        <path d="M134 34 c-1.2-1.8 -3.8-0.6 -3.8 1.2 c0 1.8 3.8 4.2 3.8 4.2 s3.8-2.4 3.8-4.2 c0-1.8 -2.6-3 -3.8-1.2z" fill="#f48c8c"/>
+
+                        <!-- شعر البنت المرجاني -->
+                        <path d="M62 42 C60 18, 118 14, 122 44 C126 52, 115 58, 112 52 C108 32, 72 34, 65 50 Z" fill="#f27d7d" stroke="#4a3535" stroke-width="2"/>
+                        <circle cx="90" cy="18" r="8" fill="#f27d7d" stroke="#4a3535" stroke-width="2"/>
+                        
+                        <!-- وجه البنت -->
+                        <ellipse cx="88" cy="52" rx="23" ry="20" fill="#ffe5d9" stroke="#4a3535" stroke-width="2"/>
+                        <!-- خدود وردية -->
+                        <ellipse cx="75" cy="55" rx="4" ry="2.5" fill="#f48c8c" opacity="0.6"/>
+                        <ellipse cx="101" cy="55" rx="4" ry="2.5" fill="#f48c8c" opacity="0.6"/>
+                        <!-- عيون وابتسامة -->
+                        <path d="M77 48 q3 -3 6 0" stroke="#4a3535" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M93 48 q3 -3 6 0" stroke="#4a3535" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M84 56 q4 4 8 0" stroke="#4a3535" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                        <!-- الطفل الصغير -->
+                        <circle cx="52" cy="64" r="15" fill="#ffe5d9" stroke="#4a3535" stroke-width="2"/>
+                        <path d="M50 49 q2 -5 6 -2" stroke="#4a3535" stroke-width="2" fill="none"/>
+                        <circle cx="46" cy="63" r="1.5" fill="#4a3535"/>
+                        <circle cx="56" cy="63" r="1.5" fill="#4a3535"/>
+                        <ellipse cx="51" cy="69" rx="2.5" ry="3" fill="#f48c8c"/>
+
+                        <!-- ملابس وذراع العناق -->
+                        <path d="M66 72 Q90 68 110 76 L106 105 L66 105 Z" fill="#ffffff" stroke="#4a3535" stroke-width="2"/>
+                        <path d="M68 84 L108 84 M67 94 L107 94" stroke="#f7b2b2" stroke-width="2.5"/>
+                        <path d="M46 79 Q58 78 66 82 L66 105 L48 105 Z" fill="#a8d5f5" stroke="#4a3535" stroke-width="2"/>
+                        <!-- ذراع البنت تعانق -->
+                        <path d="M96 78 Q72 82 54 78 Q50 83 56 87 Q76 92 98 86" fill="#ffffff" stroke="#4a3535" stroke-width="2"/>
+                    </svg>
+
+                    <!-- نص مصغر داخل دائرة الشعار -->
+                    <div class="brand-font text-sm font-bold leading-none mt-0.5" dir="ltr">
+                        <span class="text-[#f48c8c]">bunny</span>
+                        <span class="text-[#5bb2eb]">for kids</span>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-600 mt-0.5">لملابس الأطفال</span>
+                </div>
+            </div>
+
+            <!-- اسم المتجر الكبير تحت الشعار مباشرة -->
+            <h1 class="brand-font text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide mb-2 select-none" dir="ltr">
+                <span class="text-[#f48c8c] text-outline-soft">bunny</span>
+                <span class="text-[#6bb5e8] text-outline-soft">for kids</span>
+            </h1>
+
+            <!-- العنوان العربي الفرعي -->
+            <p class="text-2xl sm:text-3xl font-extrabold text-slate-700 mb-4 drop-shadow-sm">
+                لملابس الأطفال
+            </p>
+
+            <!-- شريط المعلومات والتواصل السريع -->
+            <div class="inline-flex flex-wrap items-center justify-center gap-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-full shadow-md border border-white">
+                <span class="text-sm sm:text-base font-bold text-pink-600 flex items-center gap-1.5">
+                    <i class="fas fa-sparkles"></i>
+                    تشكيلة الفساتين الملكية الفاخرة
+                </span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <a href="https://wa.me/218914055499?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20bunny%20for%20kids%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%81%D8%B3%D8%A7%D8%AA%D9%8A%D9%86" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-sm transition transform hover:scale-105">
+                    <i class="fab fa-whatsapp text-lg"></i>
+                    <span dir="ltr">0914055499</span>
+                </a>
+            </div>
+
+            <!-- أزرار تصفية سريعة حسب السعر -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+                <button onclick="filterDresses('all', this)" class="filter-btn active px-5 py-2 rounded-full text-sm font-bold bg-gradient-to-r from-[#f48c8c] to-[#6bb5e8] text-white shadow-md transition">
+                    جميع الموديلات (7)
+                </button>
+                <button onclick="filterDresses('480', this)" class="filter-btn px-5 py-2 rounded-full text-sm font-bold bg-white/80 text-slate-700 hover:bg-white border border-pink-200 shadow-sm transition">
+                    فئة 480 د
+                </button>
+                <button onclick="filterDresses('570', this)" class="filter-btn px-5 py-2 rounded-full text-sm font-bold bg-white/80 text-slate-700 hover:bg-white border border-sky-200 shadow-sm transition">
+                    فئة 570 د
+                </button>
+            </div>
+        </header>
+
+        <!-- شبكة عرض الفساتين تحت الشعار -->
+        <section id="dresses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8">
+            <!-- يتم توليد البطاقات تلقائياً عبر الجافاسكربت لضمان الدقة والنظافة -->
+        </section>
+
+        <!-- تذييل الصفحة -->
+        <footer class="mt-16 text-center bg-white/75 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-white shadow-lg max-w-2xl mx-auto">
+            <div class="brand-font text-2xl font-bold mb-1" dir="ltr">
+                <span class="text-[#f48c8c]">bunny</span>
+                <span class="text-[#6bb5e8]">for kids</span>
+            </div>
+            <p class="text-slate-700 font-bold text-lg mb-3">لملابس الأطفال - أناقة طفلتك تبدأ من هنا</p>
+            <p class="text-slate-500 text-sm mb-4">جميع المقاسات متوفرة من عمر سنة واحدة حتى 10 سنوات • توصيل متاح</p>
+            <a href="https://wa.me/218914055499" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md transition transform hover:scale-105">
+                <i class="fab fa-whatsapp text-xl"></i>
+                <span>تواصلي معنا للطلب: <span dir="ltr">0914055499</span></span>
+            </a>
+        </footer>
+    </main>
+
+    <!-- نافذة معاينة وتكبير تفاصيل الفستان (Modal) -->
+    <div id="dress-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal(event)">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border-4 border-pink-200 relative animate-[fadeIn_0.25s_ease-out]" onclick="event.stopPropagation()">
+            <!-- زر الإغلاق -->
+            <button onclick="closeModal()" class="absolute top-4 left-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-pink-500 hover:text-white text-slate-700 shadow-md flex items-center justify-center transition">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <!-- صورة الفستان المكبرة (تظهر التفاصيل الجانبية بوضوح) -->
+                <div class="bg-gradient-to-b from-pink-50 to-sky-50 p-3 flex items-center justify-center">
+                    <img id="modal-img" src="" alt="تفاصيل الفستان" class="w-full h-auto max-h-[70vh] object-contain rounded-2xl shadow-sm">
+                </div>
+
+                <!-- تفاصيل الفستان وزر الطلب -->
+                <div class="p-6 flex flex-col justify-between text-right">
+                    <div>
+                        <span id="modal-badge" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-pink-100 text-pink-600 mb-2">تشكيلة حصرية</span>
+                        <h3 id="modal-title" class="text-2xl font-extrabold text-slate-800 mb-2"></h3>
+                        <p id="modal-desc" class="text-slate-600 text-sm leading-relaxed mb-4"></p>
+
+                        <!-- السعر والمقاس -->
+                        <div class="bg-gradient-to-r from-pink-50 to-sky-50 rounded-2xl p-4 border border-pink-100 space-y-2.5 mb-5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold text-slate-600">السعر:</span>
+                                <span id="modal-price" class="text-2xl font-extrabold text-pink-600"></span>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white pt-2">
+                                <span class="text-sm font-bold text-slate-600">المقاسات المتوفرة:</span>
+                                <span class="text-sm font-extrabold text-sky-600">من سنة إلى 10 سنوات</span>
+                            </div>
+                        </div>
+
+                        <!-- اختيار المقاس السريع للرسالة -->
+                        <div class="mb-5">
+                            <label for="modal-age-select" class="block text-xs font-bold text-slate-600 mb-1.5">حددي عمر الطفلة (اختياري للطلب السريع):</label>
+                            <select id="modal-age-select" class="w-full rounded-xl border-2 border-sky-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 focus:outline-none focus:border-pink-400">
+                                <option value="من سنة إلى 10 سنوات">غير محدد (استفسار عام)</option>
+                                <option value="سنة واحدة (1)">سنة واحدة (1)</option>
+                                <option value="سنتان (2)">سنتان (2)</option>
+                                <option value="3 سنوات">3 سنوات</option>
+                                <option value="4 سنوات">4 سنوات</option>
+                                <option value="5 سنوات">5 سنوات</option>
+                                <option value="6 سنوات">6 سنوات</option>
+                                <option value="7 سنوات">7 سنوات</option>
+                                <option value="8 سنوات">8 سنوات</option>
+                                <option value="9 سنوات">9 سنوات</option>
+                                <option value="10 سنوات">10 سنوات</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <a id="modal-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer"
+                       class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-extrabold text-center shadow-lg flex items-center justify-center gap-2 transition transform hover:scale-[1.02]">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>اطلب الآن عبر واتساب</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        /**
+         * 1. بيانات الفساتين السبعة المرفقة مع توزيع الأسعار (480 د و 570 د) والمقاس (من سنة إلى 10 سنوات)
+         */
+        const dressesData = [
+            {
+                id: 1,
+                title: "فستان المخمل الأصفر الخردلي المطرز بعباد الشمس",
+                shortDesc: "فستان مخملي فاخر بلون أصفر خردلي دافئ، مزين بفيونكة وتطريز زهور عباد الشمس على الحواف والصدر.",
+                price: 570,
+                priceText: "570 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "pink",
+                badge: "تطريز فاخر",
+                image: "IMG_5146.jpeg"
+            },
+            {
+                id: 2,
+                title: "فستان المخمل الأحمر البرغندي بياقة دانتيل",
+                shortDesc: "فستان مخملي أحمر برغندي لامع مع ياقة بيضاء مطرزة بالدانتيل واللؤلؤ وفيونكة أنيقة.",
+                price: 570,
+                priceText: "570 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "blue",
+                badge: "الأكثر طلباً",
+                image: "IMG_5143.jpeg"
+            },
+            {
+                id: 3,
+                title: "فستان الجاكار المنقوش بالورود وياقة مخمل عنابية",
+                shortDesc: "تصميم كلاسيكي راقٍ بنقشة زهور بارزة وأكمام طويلة مع ياقة وأساور من المخمل العنابي الفاخر.",
+                price: 480,
+                priceText: "480 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "pink",
+                badge: "تصميم كلاسيكي",
+                image: "IMG_5142.jpeg"
+            },
+            {
+                id: 4,
+                title: "الفستان الكريمي الملكي بالدانتيل والكشكش",
+                shortDesc: "فستان أميرات باللون الأبيض الكريمي مصنوع من الدانتيل الفرنسي الفاخر مع أزرار لؤلؤية وكشكش رقيق.",
+                price: 570,
+                priceText: "570 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "blue",
+                badge: "إصدار ملكي",
+                image: "IMG_5144.jpeg"
+            },
+            {
+                id: 5,
+                title: "فستان المخمل الوردي وتنورة الجاكار الذهبية",
+                shortDesc: "يجمع بين نعومة المخمل الوردي في الأعلى وتنورة جاكار منقوشة بالورود الذهبية مع فيونكة خصر.",
+                price: 480,
+                priceText: "480 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "pink",
+                badge: "أناقة ناعمة",
+                image: "IMG_5140.jpeg"
+            },
+            {
+                id: 6,
+                title: "فستان الساتان الأزرق الملكي بياقة الزهور",
+                shortDesc: "فستان كلوش منفوش باللون الأزرق الملكي، مزين بياقة مطرزة بالورود البيضاء وحزام بفيونكة كريستالية.",
+                price: 480,
+                priceText: "480 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "blue",
+                badge: "إطلالة ساحرة",
+                image: "IMG_5158.jpeg"
+            },
+            {
+                id: 7,
+                title: "فستان المخمل البنفسجي اللافندر بالفيونكات",
+                shortDesc: "فستان مخملي بلون اللافندر الحالم مطرز بالزهور والخرز على الصدر مع فيونكتين وشرائط ساتان بيضاء.",
+                price: 570,
+                priceText: "570 د",
+                sizeText: "المقاس: من سنة إلى 10 سنوات",
+                theme: "pink",
+                badge: "تصميم مميز",
+                image: "IMG_5141.jpeg"
+            }
+        ];
+
+        const WHATSAPP_NUMBER = "218914055499";
+        let currentModalDress = null;
+
+        /**
+         * 2. عرض بطاقات الفساتين في الشبكة
+         */
+        function renderDresses(filterPrice = 'all') {
+            const grid = document.getElementById('dresses-grid');
+            grid.innerHTML = '';
+
+            const filtered = filterPrice === 'all' 
+                ? dressesData 
+                : dressesData.filter(d => d.price.toString() === filterPrice);
+
+            filtered.forEach(dress => {
+                const isPink = dress.theme === 'pink';
+                const borderClass = isPink ? 'card-border-pink' : 'card-border-blue';
+                const titleColor = isPink ? 'text-[#e06c6c]' : 'text-[#4c9ed9]';
+                const badgeBg = isPink ? 'bg-pink-100 text-pink-600' : 'bg-sky-100 text-sky-600';
+                const priceBadgeBg = isPink 
+                    ? 'bg-gradient-to-r from-[#f48c8c] to-[#f7a8a8]' 
+                    : 'bg-gradient-to-r from-[#6bb5e8] to-[#8ec9f2]';
+
+                const whatsappMsg = encodeURIComponent(
+                    `مرحباً bunny for kids 🌸\nأرغب في طلب:\n• الموديل: ${dress.title}\n• السعر: ${dress.priceText}\n• المقاس المطلوب: (من سنة إلى 10 سنوات)`
+                );
+
+                const card = document.createElement('article');
+                card.className = `dress-card ${borderClass} overflow-hidden flex flex-col justify-between group`;
+
+                card.innerHTML = `
+                    <div>
+                        <!-- حاوية الصورة القابلة للنقر والتكبير -->
+                        <div class="relative overflow-hidden cursor-pointer bg-gradient-to-b from-pink-50/60 to-sky-50/60 aspect-[4/4.6]" onclick="openModal(${dress.id})">
+                            <img src="${dress.image}" 
+                                 alt="${dress.title}" 
+                                 loading="lazy"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/600x700/fde6e8/f48c8c?text=bunny+for+kids';"
+                                 class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                            
+                            <!-- شارة علوية -->
+                            <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-extrabold ${badgeBg} shadow-sm backdrop-blur-sm">
+                                ${dress.badge}
+                            </span>
+
+                            <!-- شارة السعر البارزة -->
+                            <div class="absolute bottom-3 left-3 ${priceBadgeBg} text-white px-4 py-1.5 rounded-2xl shadow-lg font-extrabold text-lg flex items-center gap-1">
+                                <span>${dress.priceText}</span>
+                            </div>
+
+                            <!-- أيقونة تكبير لمعاينة التفاصيل الجانبية -->
+                            <button type="button" aria-label="تكبير الصورة" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 text-slate-700 hover:bg-pink-500 hover:text-white shadow-md flex items-center justify-center transition">
+                                <i class="fas fa-search-plus text-sm"></i>
+                            </button>
+                        </div>
+
+                        <!-- تفاصيل الفستان -->
+                        <div class="p-5 text-center">
+                            <h2 class="text-lg sm:text-xl font-extrabold ${titleColor} mb-2 leading-snug">
+                                ${dress.title}
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-600 mb-3 line-clamp-2">
+                                ${dress.shortDesc}
+                            </p>
+
+                            <!-- شريط المقاس والسعر -->
+                            <div class="flex items-center justify-center gap-2 flex-wrap bg-slate-50/90 py-2 px-3 rounded-2xl border border-slate-100">
+                                <span class="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-1">
+                                    <i class="fas fa-ruler-vertical text-pink-400"></i>
+                                    ${dress.sizeText}
+                                </span>
+                                <span class="text-slate-300">|</span>
+                                <span class="text-sm sm:text-base font-extrabold text-sky-600">
+                                    السعر: ${dress.priceText}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أزرار التفاعل أسفل البطاقة -->
+                    <div class="px-5 pb-5 pt-1 flex items-center gap-2">
+                        <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMsg}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="flex-1 py-2.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-sm font-extrabold shadow-md flex items-center justify-center gap-2 transition transform active:scale-95">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                            <span>اطلب الآن عبر واتساب</span>
+                        </a>
+                        <button onclick="openModal(${dress.id})" 
+                                class="py-2.5 px-3.5 rounded-2xl bg-pink-50 hover:bg-pink-100 text-pink-600 font-bold text-xs border border-pink-200 transition">
+                            التفاصيل
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        /**
+         * 3. تصفية الفساتين حسب السعر
+         */
+        function filterDresses(price, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-gradient-to-r', 'from-[#f48c8c]', 'to-[#6bb5e8]', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white/80', 'text-slate-700');
+            });
+            btnElement.classList.remove('bg-white/80', 'text-slate-700');
+            btnElement.classList.add('bg-gradient-to-r', 'from-[#f48c8c]', 'to-[#6bb5e8]', 'text-white', 'shadow-md');
+            
+            renderDresses(price);
+        }
+
+        /**
+         * 4. إدارة النافذة المنبثقة (Modal)
+         */
+        function openModal(dressId) {
+            const dress = dressesData.find(d => d.id === dressId);
+            if (!dress) return;
+
+            currentModalDress = dress;
+            document.getElementById('modal-img').src = dress.image;
+            document.getElementById('modal-title').textContent = dress.title;
+            document.getElementById('modal-desc').textContent = dress.shortDesc;
+            document.getElementById('modal-price').textContent = dress.priceText;
+            document.getElementById('modal-badge').textContent = dress.badge;
+            document.getElementById('modal-age-select').value = "من سنة إلى 10 سنوات";
+
+            updateModalWhatsappLink();
+
+            const modal = document.getElementById('dress-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function updateModalWhatsappLink() {
+            if (!currentModalDress) return;
+            const selectedAge = document.getElementById('modal-age-select').value;
+            const msg = encodeURIComponent(
+                `مرحباً bunny for kids 🌸\nأرغب في طلب الفستان التالي:\n• الموديل: ${currentModalDress.title}\n• السعر: ${currentModalDress.priceText}\n• المقاس: ${selectedAge}`
+            );
+            document.getElementById('modal-whatsapp-btn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+        }
+
+        document.getElementById('modal-age-select').addEventListener('change', updateModalWhatsappLink);
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            const modal = document.getElementById('dress-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /**
+         * 5. مشغل اليوتيوب التلقائي (Video ID: zbQRji4t-u4)
+         */
+        let ytPlayer = null;
+        let isMusicPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-player', {
+                height: '80',
+                width: '80',
+                videoId: 'zbQRji4t-u4',
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    disablekb: 1,
+                    fs: 0,
+                    loop: 1,
+                    playlist: 'zbQRji4t-u4',
+                    modestbranding: 1,
+                    playsinline: 1,
+                    rel: 0
+                },
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // محاولة التشغيل التلقائي بالصوت فور فتح الصفحة
+            event.target.setVolume(80);
+            event.target.playVideo();
+
+            // التحقق بعد لحظة قصيرة هل سمح المتصفح بالتشغيل التلقائي للصوت أم حظره
+            setTimeout(() => {
+                if (ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
+                    const state = ytPlayer.getPlayerState();
+                    if (state !== YT.PlayerState.PLAYING) {
+                        // المتصفح حظر الصوت التلقائي -> إظهار شريط تفعيل سريع وتفعيل الصوت عند أول لمسة
+                        document.getElementById('audio-unlock-banner').classList.remove('hidden');
+                        document.getElementById('music-status-text').textContent = 'اضغط للتشغيل';
+                        document.getElementById('music-btn-icon').className = 'fas fa-volume-mute text-sm';
+                        setupFirstInteractionUnlock();
+                    } else {
+                        setPlayingUI(true);
+                    }
+                }
+            }, 1200);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                setPlayingUI(true);
+                document.getElementById('audio-unlock-banner').classList.add('hidden');
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                setPlayingUI(false);
+            }
+        }
+
+        function setPlayingUI(playing) {
+            isMusicPlaying = playing;
+            const icon = document.getElementById('music-btn-icon');
+            const status = document.getElementById('music-status-text');
+            const container = document.getElementById('youtube-container');
+
+            if (playing) {
+                icon.className = 'fas fa-volume-up text-sm';
+                status.textContent = 'يشتغل الآن 🎵';
+                container.classList.add('music-playing');
+            } else {
+                icon.className = 'fas fa-volume-mute text-sm';
+                status.textContent = 'متوقف مؤقتاً';
+                container.classList.remove('music-playing');
+            }
+        }
+
+        function forcePlayMusic() {
+            if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                ytPlayer.unMute();
+                ytPlayer.setVolume(80);
+                ytPlayer.playVideo();
+                setPlayingUI(true);
+                document.getElementById('audio-unlock-banner').classList.add('hidden');
+            }
+        }
+
+        function toggleMusic(e) {
+            if (e) e.stopPropagation();
+            if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+
+            const state = ytPlayer.getPlayerState();
+            if (state === YT.PlayerState.PLAYING && !ytPlayer.isMuted()) {
+                ytPlayer.pauseVideo();
+                setPlayingUI(false);
+            } else {
+                ytPlayer.unMute();
+                ytPlayer.setVolume(80);
+                ytPlayer.playVideo();
+                setPlayingUI(true);
+                document.getElementById('audio-unlock-banner').classList.add('hidden');
+            }
+        }
+
+        function setupFirstInteractionUnlock() {
+            const unlockHandler = () => {
+                forcePlayMusic();
+                document.removeEventListener('click', unlockHandler);
+                document.removeEventListener('touchstart', unlockHandler);
+            };
+            document.addEventListener('click', unlockHandler, { once: true });
+            document.addEventListener('touchstart', unlockHandler, { once: true });
+        }
+
+        /**
+         * 6. تأثير تساقط بتلات الورود الوردية والزرقاء السماوية باستمرار وبنعومة (Canvas)
+         */
+        function initFallingPetals() {
+            const canvas = document.getElementById('petals-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            // ألوان البتلات المستوحاة من الصورة المرفقة (وردي باستيل، وردي مرجاني، أزرق سماوي، لافندر فاتح)
+            const petalColors = [
+                { fill: 'rgba(248, 165, 178, 0.78)', stroke: 'rgba(235, 130, 148, 0.4)' }, // وردي
+                { fill: 'rgba(255, 198, 208, 0.82)', stroke: 'rgba(244, 140, 140, 0.35)' }, // وردي فاتح
+                { fill: 'rgba(158, 205, 245, 0.78)', stroke: 'rgba(107, 181, 232, 0.4)' }, // أزرق سماوي
+                { fill: 'rgba(186, 222, 252, 0.82)', stroke: 'rgba(125, 190, 240, 0.35)' }  // أزرق ثلجي
+            ];
+
+            class Petal {
+                constructor() {
+                    this.reset(true);
+                }
+
+                reset(initial = false) {
+                    this.x = Math.random() * width;
+                    this.y = initial ? Math.random() * height : -30;
+                    this.size = 8 + Math.random() * 11;
+                    this.speedY = 0.7 + Math.random() * 1.3;
+                    this.speedX = -0.5 + Math.random() * 1.0;
+                    this.swingSpeed = 0.015 + Math.random() * 0.025;
+                    this.swingAngle = Math.random() * Math.PI * 2;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = (-0.02 + Math.random() * 0.04);
+                    this.flip = Math.random() * Math.PI;
+                    this.flipSpeed = 0.02 + Math.random() * 0.03;
+                    this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                }
+
+                update() {
+                    this.swingAngle += this.swingSpeed;
+                    this.y += this.speedY;
+                    this.x += this.speedX + Math.sin(this.swingAngle) * 0.8;
+                    this.rotation += this.rotationSpeed;
+                    this.flip += this.flipSpeed;
+
+                    if (this.y > height + 30 || this.x < -40 || this.x > width + 40) {
+                        this.reset(false);
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    // محاكاة التفاف البتلة في الهواء ثلاثي الأبعاد
+                    const scaleY = 0.45 + Math.abs(Math.sin(this.flip)) * 0.55;
+                    ctx.scale(1, scaleY);
+
+                    ctx.beginPath();
+                    // رسم شكل بتلة وردة طبيعية ناعمة
+                    ctx.moveTo(0, -this.size);
+                    ctx.bezierCurveTo(
+                        this.size * 0.95, -this.size * 0.85,
+                        this.size * 1.1, this.size * 0.45,
+                        0, this.size
+                    );
+                    ctx.bezierCurveTo(
+                        -this.size * 1.1, this.size * 0.45,
+                        -this.size * 0.95, -this.size * 0.85,
+                        0, -this.size
+                    );
+                    ctx.closePath();
+
+                    ctx.fillStyle = this.color.fill;
+                    ctx.fill();
+                    ctx.lineWidth = 0.8;
+                    ctx.strokeStyle = this.color.stroke;
+                    ctx.stroke();
+
+                    ctx.restore();
+                }
+            }
+
+            const petalCount = width < 640 ? 28 : 48;
+            const petals = Array.from({ length: petalCount }, () => new Petal());
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < petals.length; i++) {
+                    petals[i].update();
+                    petals[i].draw();
+                }
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // تشغيل التهيئة عند تحميل الصفحة
+        window.onload = function() {
+            renderDresses('all');
+            initFallingPetals();
+        };
+    </script>
+</body>
+</html>
