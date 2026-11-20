@@ -541,14 +541,7 @@
 
                 card.innerHTML = `
                     <div>
-                        <!-- حاوية الصورة القابلة للنقر والتكبير -->
-                        <div class="relative overflow-hidden cursor-pointer bg-gradient-to-b from-pink-50/60 to-sky-50/60 aspect-[4/4.6]" onclick="openModal(${dress.id})">
-                            <img src="${dress.image}" 
-                                 alt="${dress.title}" 
-                                 loading="lazy"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/600x700/fde6e8/f48c8c?text=bunny+for+kids';"
-                                 class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
-                            
+
                             <!-- شارة علوية -->
                             <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-extrabold ${badgeBg} shadow-sm backdrop-blur-sm">
                                 ${dress.badge}
@@ -559,20 +552,7 @@
                                 <span>${dress.priceText}</span>
                             </div>
 
-                            <!-- أيقونة تكبير لمعاينة التفاصيل الجانبية -->
-                            <button type="button" aria-label="تكبير الصورة" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 text-slate-700 hover:bg-pink-500 hover:text-white shadow-md flex items-center justify-center transition">
-                                <i class="fas fa-search-plus text-sm"></i>
-                            </button>
-                        </div>
 
-                        <!-- تفاصيل الفستان -->
-                        <div class="p-5 text-center">
-                            <h2 class="text-lg sm:text-xl font-extrabold ${titleColor} mb-2 leading-snug">
-                                ${dress.title}
-                            </h2>
-                            <p class="text-xs sm:text-sm text-slate-600 mb-3 line-clamp-2">
-                                ${dress.shortDesc}
-                            </p>
 
                             <!-- شريط المقاس والسعر -->
                             <div class="flex items-center justify-center gap-2 flex-wrap bg-slate-50/90 py-2 px-3 rounded-2xl border border-slate-100">
